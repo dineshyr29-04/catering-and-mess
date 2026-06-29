@@ -48,69 +48,66 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative py-24 bg-[#0c0e14]">
-      {/* Background decoration */}
-      <div className="absolute left-10 bottom-10 w-72 h-72 rounded-full bg-gold/5 blur-[100px] pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
+    <section id="testimonials" className="relative py-20 bg-[#faf9f6]">
+      <div className="w-full px-6 md:px-16 lg:px-24 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="max-w-xl mb-12">
           <span className="text-gold font-bold text-xs uppercase tracking-[0.25em]">{t("testiSubtitle")}</span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mt-3">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
             {t("testiTitle")}
           </h2>
-          <div className="w-12 h-1 bg-gold mx-auto mt-6" />
+          <div className="w-12 h-0.5 bg-gold mt-4" />
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative glass-premium rounded-3xl p-8 sm:p-12 border border-gold/15 shadow-2xl overflow-hidden min-h-[320px] flex flex-col justify-between">
-          <Quote className="absolute right-8 top-8 w-20 h-20 text-gold/[0.03] rotate-180" />
+        {/* Carousel Container - White Card styled */}
+        <div className="relative bg-white rounded-3xl p-8 sm:p-10 border border-neutral-100 shadow-[0_15px_40px_rgba(0,0,0,0.02)] overflow-hidden min-h-[280px] flex flex-col justify-between">
+          <Quote className="absolute right-8 top-8 w-16 h-16 text-neutral-100 rotate-180 pointer-events-none" />
           
           <div className="relative z-10">
             {/* Stars */}
-            <div className="flex gap-1 text-gold mb-6 justify-center sm:justify-start">
+            <div className="flex gap-0.5 text-gold mb-5 justify-center sm:justify-start">
               {[...Array(reviews[activeIndex].rating)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+                <Star key={i} className="w-3.5 h-3.5 fill-gold text-gold" />
               ))}
             </div>
 
             {/* Testimonial Quote */}
-            <blockquote className="font-serif text-lg sm:text-xl md:text-2xl text-white font-light italic leading-relaxed text-center sm:text-left mb-8 min-h-[120px] transition-all duration-500">
+            <blockquote className="font-serif text-base sm:text-lg md:text-xl text-neutral-850 font-light italic leading-relaxed text-center sm:text-left mb-6 min-h-[100px] transition-all duration-500">
               &ldquo;{reviews[activeIndex].quote}&rdquo;
             </blockquote>
           </div>
 
           {/* Reviewer Bio / Controls */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-8">
-            <div className="flex items-center gap-4 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-neutral-100 pt-6">
+            <div className="flex items-center gap-3 text-center sm:text-left">
               <img
                 src={reviews[activeIndex].image}
                 alt={reviews[activeIndex].name}
-                className="w-12 h-12 rounded-full border border-gold/45 object-cover"
+                className="w-10 h-10 rounded-full border border-neutral-200 object-cover"
               />
               <div>
-                <h4 className="font-serif text-base font-bold text-white">{reviews[activeIndex].name}</h4>
-                <p className="text-xs text-neutral-400 font-light mt-0.5">{reviews[activeIndex].role}</p>
+                <h4 className="font-serif text-sm font-bold text-neutral-800">{reviews[activeIndex].name}</h4>
+                <p className="text-[10px] text-neutral-400 font-medium mt-0.5">{reviews[activeIndex].role}</p>
               </div>
             </div>
 
             {/* Button controls */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <button
                 onClick={handlePrev}
-                className="p-3 rounded-full bg-brand-dark/50 hover:bg-gold hover:text-brand-dark text-neutral-400 border border-white/5 hover:border-gold transition-all duration-300"
+                className="p-2 rounded-full border border-neutral-200 text-neutral-450 hover:bg-neutral-900 hover:text-white transition-all duration-300"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5" />
               </button>
-              <span className="text-xs font-bold text-neutral-400 tracking-wider">
+              <span className="text-[10px] font-bold text-neutral-450 tracking-wider">
                 0{activeIndex + 1} / 0{reviews.length}
               </span>
               <button
                 onClick={handleNext}
-                className="p-3 rounded-full bg-brand-dark/50 hover:bg-gold hover:text-brand-dark text-neutral-400 border border-white/5 hover:border-gold transition-all duration-300"
+                className="p-2 rounded-full border border-neutral-200 text-neutral-450 hover:bg-neutral-900 hover:text-white transition-all duration-300"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>

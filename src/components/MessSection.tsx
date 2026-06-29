@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAdmin } from "@/context/AdminContext";
-import { Check, Flame, HelpCircle, Gift } from "lucide-react";
+import { Check, Flame, Gift } from "lucide-react";
 
 export default function MessSection() {
   const { t } = useLanguage();
@@ -52,12 +52,10 @@ export default function MessSection() {
     const activePlan = plans.find(p => p.id === selectedPlan) || plans[1];
     let mealCost = activePlan.baseMealPrice;
 
-    // Diet preference surcharge
     if (dietPref === "nonveg") {
       mealCost += 30;
     }
 
-    // Number of meals factor
     let mealsPerDayCount = 1;
     let mealMultiplier = 1.0;
     if (mealTime === "both") {
@@ -65,14 +63,11 @@ export default function MessSection() {
       mealMultiplier = 1.8; // Bulk discount for double meal
     }
 
-    // Duration discount factor
     let durationDiscount = 1.0;
     if (duration === 60) durationDiscount = 0.90; // 10% off
     if (duration === 90) durationDiscount = 0.85; // 15% off
 
-    // Total Calculation
     const totalDays = duration;
-    const baseTotal = mealCost * mealsPerDayCount * totalDays;
     const finalTotal = Math.round(mealCost * mealsPerDayCount * mealMultiplier * totalDays * durationDiscount);
     const normalTotalNoDiscount = Math.round(mealCost * mealsPerDayCount * totalDays);
 
@@ -110,50 +105,44 @@ export default function MessSection() {
   };
 
   return (
-    <section id="mess" className="relative py-24 bg-[#0c0e14]">
-      {/* Design elements */}
-      <div className="absolute right-0 top-1/3 w-80 h-80 rounded-full bg-gold/5 blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="mess" className="relative py-20 bg-[#faf9f6]">
+      <div className="w-full px-6 md:px-16 lg:px-24">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="max-w-xl mb-12">
           <span className="text-gold font-bold text-xs uppercase tracking-[0.25em]">{t("messSubtitle")}</span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mt-3">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
             {t("messTitle")}
           </h2>
-          <p className="text-neutral-400 text-xs md:text-sm font-light mt-4 max-w-xl mx-auto">
-            {t("messP1")}
-          </p>
-          <div className="w-12 h-1 bg-gold mx-auto mt-6" />
+          <div className="w-12 h-0.5 bg-gold mt-4" />
         </div>
 
         {/* Info badges */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
             t("freshDaily"),
             t("balancedNutrition"),
             t("hygienicKitchen"),
             t("flexiblePlans")
           ].map((item, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-brand-card/50 border border-white/5 flex items-center gap-3">
-              <div className="w-5 h-5 rounded-full bg-gold/10 text-gold flex items-center justify-center shrink-0">
-                <Check className="w-3.5 h-3.5" />
+            <div key={idx} className="p-3.5 rounded-xl bg-white border border-neutral-100 flex items-center gap-2.5 shadow-sm">
+              <div className="w-4.5 h-4.5 rounded-full bg-gold/10 text-gold flex items-center justify-center shrink-0">
+                <Check className="w-3 h-3" />
               </div>
-              <span className="text-xs font-semibold text-white tracking-wide">{item}</span>
+              <span className="text-[11px] font-bold text-neutral-700 tracking-wide">{item}</span>
             </div>
           ))}
         </div>
 
         {/* Configurator block */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Configurator controls (Left) */}
-          <div className="lg:col-span-7 bg-brand-card/50 border border-white/5 p-6 sm:p-8 rounded-3xl space-y-8">
+          <div className="lg:col-span-7 bg-white border border-neutral-100 p-6 sm:p-8 rounded-3xl space-y-6 shadow-sm">
             
             {/* Step 1: Select Plan */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-gold mb-4">
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gold mb-3.5">
                 01. Choose Meal Program
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -161,29 +150,29 @@ export default function MessSection() {
                   <button
                     key={p.id}
                     onClick={() => setSelectedPlan(p.id as any)}
-                    className={`p-4 rounded-xl border text-left transition-all duration-300 ${
+                    className={`p-4.5 rounded-xl border text-left transition-all duration-300 ${
                       selectedPlan === p.id
-                        ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        ? "bg-gold/5 border-gold text-gold"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
-                    <h4 className="text-xs font-bold uppercase tracking-wider mb-1">{p.name.split(" ")[0]}</h4>
-                    <p className="text-[10px] opacity-80 leading-relaxed font-light">{p.name.split(" ").slice(1).join(" ")}</p>
-                    <p className="text-xs font-bold mt-2 text-white">from ₹{p.baseMealPrice}/meal</p>
+                    <h4 className="text-[11px] font-bold uppercase tracking-wider mb-0.5">{p.name.split(" ")[0]}</h4>
+                    <p className="text-[9px] opacity-80 leading-relaxed font-light">{p.name.split(" ").slice(1).join(" ")}</p>
+                    <p className="text-[11px] font-bold mt-2 text-neutral-800">from ₹{p.baseMealPrice}/meal</p>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Bullet list of selected plan */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <p className="text-[11px] text-neutral-300 font-light mb-3 leading-relaxed">
+            <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-100">
+              <p className="text-[10px] text-neutral-500 font-light mb-3 leading-relaxed">
                 {plans.find(p => p.id === selectedPlan)?.desc}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {plans.find(p => p.id === selectedPlan)?.bullets.map((bullet, idx) => (
-                  <div key={idx} className="flex items-center gap-1.5 text-[10px] text-neutral-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                  <div key={idx} className="flex items-center gap-1.5 text-[10px] text-neutral-600 font-medium">
+                    <span className="w-1 h-1 rounded-full bg-gold" />
                     <span>{bullet}</span>
                   </div>
                 ))}
@@ -193,26 +182,26 @@ export default function MessSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Step 2: Meal Preference */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gold mb-3">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-gold mb-2.5">
                   02. Food Preference
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setDietPref("veg")}
-                    className={`py-3 rounded-lg border text-center text-xs font-bold uppercase tracking-wide transition-all ${
+                    className={`py-2.5 rounded-lg border text-center text-[10px] font-bold uppercase tracking-wide transition-all ${
                       dietPref === "veg"
                         ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     {t("vegOnly")}
                   </button>
                   <button
                     onClick={() => setDietPref("nonveg")}
-                    className={`py-3 rounded-lg border text-center text-xs font-bold uppercase tracking-wide transition-all ${
+                    className={`py-2.5 rounded-lg border text-center text-[10px] font-bold uppercase tracking-wide transition-all ${
                       dietPref === "nonveg"
                         ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     Non-Veg (+₹30)
@@ -222,36 +211,36 @@ export default function MessSection() {
 
               {/* Step 3: Meal Time */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest text-gold mb-3">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-gold mb-2.5">
                   03. Meal Time
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
                     onClick={() => setMealTime("lunch")}
-                    className={`py-3 rounded-lg border text-center text-[10px] font-bold uppercase tracking-wide transition-all ${
+                    className={`py-2.5 rounded-lg border text-center text-[9px] font-bold uppercase tracking-wide transition-all ${
                       mealTime === "lunch"
                         ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     Lunch
                   </button>
                   <button
                     onClick={() => setMealTime("dinner")}
-                    className={`py-3 rounded-lg border text-center text-[10px] font-bold uppercase tracking-wide transition-all ${
+                    className={`py-2.5 rounded-lg border text-center text-[9px] font-bold uppercase tracking-wide transition-all ${
                       mealTime === "dinner"
                         ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     Dinner
                   </button>
                   <button
                     onClick={() => setMealTime("both")}
-                    className={`py-3 rounded-lg border text-center text-[10px] font-bold uppercase tracking-wide transition-all ${
+                    className={`py-2.5 rounded-lg border text-center text-[9px] font-bold uppercase tracking-wide transition-all ${
                       mealTime === "both"
                         ? "bg-gold/10 border-gold text-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     Both Meals
@@ -263,10 +252,10 @@ export default function MessSection() {
             {/* Step 4: Duration */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <label className="text-xs font-bold uppercase tracking-widest text-gold">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gold">
                   04. Duration of Plan
                 </label>
-                <span className="text-xs font-bold text-white bg-gold/10 px-2.5 py-1 rounded-md border border-gold/25">
+                <span className="text-[10px] font-bold text-gold bg-gold/10 px-2 py-0.5 rounded border border-gold/25">
                   {duration} Days Plan
                 </span>
               </div>
@@ -275,15 +264,15 @@ export default function MessSection() {
                   <button
                     key={dur}
                     onClick={() => setDuration(dur as any)}
-                    className={`flex-1 py-3 rounded-lg border text-center text-xs font-bold transition-all ${
+                    className={`flex-1 py-2.5 rounded-lg border text-center text-[10px] font-bold transition-all ${
                       duration === dur
-                        ? "bg-gold text-[#08090b] border-gold"
-                        : "border-white/5 bg-brand-dark/40 text-neutral-400 hover:border-white/20"
+                        ? "bg-neutral-900 text-white border-neutral-900"
+                        : "border-neutral-150 bg-white text-neutral-500 hover:border-neutral-300"
                     }`}
                   >
                     {dur} Days
-                    {dur === 60 && <span className="block text-[8px] font-semibold text-neutral-400 uppercase mt-0.5">Save 10%</span>}
-                    {dur === 90 && <span className="block text-[8px] font-semibold text-neutral-400 uppercase mt-0.5">Save 15%</span>}
+                    {dur === 60 && <span className="block text-[7px] font-semibold text-neutral-400 uppercase mt-0.5">Save 10%</span>}
+                    {dur === 90 && <span className="block text-[7px] font-semibold text-neutral-400 uppercase mt-0.5">Save 15%</span>}
                   </button>
                 ))}
               </div>
@@ -292,55 +281,55 @@ export default function MessSection() {
           </div>
 
           {/* Pricing Summary (Right) */}
-          <div className="lg:col-span-5 bg-gradient-to-b from-[#12141c] to-[#0a0c10] border border-gold/15 p-8 rounded-3xl shadow-2xl relative overflow-hidden group">
+          <div className="lg:col-span-5 bg-white border border-neutral-100 p-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.03)] relative overflow-hidden group">
             {/* Savings Tag */}
             {savings > 0 && (
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-amber-600 text-white text-[9px] uppercase font-bold tracking-widest px-3 py-1.5 rounded-full flex items-center gap-1 animate-pulse">
-                <Gift className="w-3.5 h-3.5" />
+              <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-amber-600 text-white text-[8px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1">
+                <Gift className="w-3 h-3" />
                 <span>Save ₹{savings.toLocaleString("en-IN")}</span>
               </div>
             )}
 
-            <h3 className="font-serif text-lg font-bold text-white mb-6">Subscription Summary</h3>
+            <h3 className="font-serif text-base font-bold text-neutral-800 mb-6">Subscription Summary</h3>
             
-            <div className="space-y-4 text-xs">
-              <div className="flex justify-between border-b border-white/5 pb-3.5">
+            <div className="space-y-3.5 text-[11px]">
+              <div className="flex justify-between border-b border-neutral-100 pb-3">
                 <span className="text-neutral-400">Selected Program</span>
-                <span className="text-white font-semibold uppercase">{plans.find(p => p.id === selectedPlan)?.name.split(" ")[0]} Program</span>
+                <span className="text-neutral-700 font-bold uppercase">{plans.find(p => p.id === selectedPlan)?.name.split(" ")[0]} Plan</span>
               </div>
-              <div className="flex justify-between border-b border-white/5 pb-3.5">
+              <div className="flex justify-between border-b border-neutral-100 pb-3">
                 <span className="text-neutral-400">Preference</span>
-                <span className="text-white font-semibold uppercase">{dietPref === "veg" ? "Pure Vegetarian" : "Veg & Non-Veg"}</span>
+                <span className="text-neutral-700 font-bold uppercase">{dietPref === "veg" ? "Pure Vegetarian" : "Veg & Non-Veg"}</span>
               </div>
-              <div className="flex justify-between border-b border-white/5 pb-3.5">
+              <div className="flex justify-between border-b border-neutral-100 pb-3">
                 <span className="text-neutral-400">Delivery cycle</span>
-                <span className="text-white font-semibold uppercase">{mealTime === "both" ? "Lunch & Dinner" : mealTime}</span>
+                <span className="text-neutral-700 font-bold uppercase">{mealTime === "both" ? "Lunch & Dinner" : mealTime}</span>
               </div>
-              <div className="flex justify-between border-b border-white/5 pb-3.5">
+              <div className="flex justify-between border-b border-neutral-100 pb-3">
                 <span className="text-neutral-400">Calculated Meal Rate</span>
                 <span className="text-gold font-bold">₹{pricePerMeal} / meal</span>
               </div>
               <div className="flex justify-between pt-2">
-                <span className="text-sm font-bold text-white">Estimated Cost</span>
+                <span className="text-xs font-bold text-neutral-800">Estimated Cost</span>
                 <div className="text-right">
-                  <span className="text-2xl font-bold text-gold">₹{totalPrice.toLocaleString("en-IN")}</span>
-                  <span className="block text-[9px] text-neutral-500 mt-0.5">for {duration} days total</span>
+                  <span className="text-xl font-bold text-gold">₹{totalPrice.toLocaleString("en-IN")}</span>
+                  <span className="block text-[8px] text-neutral-400 mt-0.5">for {duration} days total</span>
                 </div>
               </div>
             </div>
 
-            <hr className="border-white/5 my-6" />
+            <hr className="border-neutral-100 my-5" />
 
             {/* Subscribe form nested */}
             {isBooked ? (
-              <div className="py-6 text-center text-xs text-gold font-medium animate-scale-up">
-                <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold flex items-center justify-center mx-auto mb-4 text-gold">
-                  <Check className="w-6 h-6" />
+              <div className="py-4 text-center text-[11px] text-gold font-medium animate-scale-up">
+                <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold flex items-center justify-center mx-auto mb-3 text-gold">
+                  <Check className="w-5 h-5" />
                 </div>
-                <span>Subscription Enquiry Registered! <br />Our hospitality manager will call you shortly.</span>
+                <span>Subscription Enquiry Registered! <br />We will contact you shortly.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="space-y-4">
+              <form onSubmit={handleSubscribe} className="space-y-3">
                 <div className="space-y-2">
                   <input
                     type="text"
@@ -348,7 +337,7 @@ export default function MessSection() {
                     placeholder="Enter Your Name"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-brand-dark/60 border border-white/10 text-white text-xs focus:border-gold focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-800 text-[11px] focus:border-gold focus:outline-none"
                   />
                   <input
                     type="tel"
@@ -356,21 +345,21 @@ export default function MessSection() {
                     placeholder="Enter Phone Number"
                     value={clientPhone}
                     onChange={(e) => setClientPhone(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-brand-dark/60 border border-white/10 text-white text-xs focus:border-gold focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-200 bg-white text-neutral-800 text-[11px] focus:border-gold focus:outline-none"
                   />
                 </div>
                 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-full bg-gradient-to-r from-gold-dark to-gold text-[#08090b] font-bold text-xs uppercase tracking-wider text-center transition-all hover:scale-[1.02] shadow-[0_5px_15px_rgba(197,168,128,0.2)]"
+                  className="w-full py-3 rounded-full bg-neutral-900 hover:bg-gold text-white font-bold text-[10px] uppercase tracking-wider text-center transition-all hover:scale-[1.02]"
                 >
                   {t("subscribeCTA")}
                 </button>
               </form>
             )}
 
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-[9px] text-neutral-500">
-              <Flame className="w-3.5 h-3.5 text-orange-500" />
+            <div className="mt-4 flex items-center justify-center gap-1.5 text-[8px] text-neutral-400">
+              <Flame className="w-3 h-3 text-orange-500 shrink-0" />
               <span>Cancel/Pause subscriptions anytime in student panels.</span>
             </div>
           </div>

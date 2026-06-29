@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ShieldCheck, Award, Users, UtensilsCrossed, ArrowRight } from "lucide-react";
+import { Award, Users, UtensilsCrossed, ShieldCheck, ArrowRight } from "lucide-react";
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1920&q=80", // Premium catering buffet setup
-  "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1920&q=80", // Premium plated main course
-  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=80"  // Luxury restaurant chef preparation
+  "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
 ];
 
 export default function Hero() {
@@ -17,7 +17,7 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -25,7 +25,7 @@ export default function Hero() {
     e.preventDefault();
     const targetElement = document.querySelector(target);
     if (targetElement) {
-      const offset = 80;
+      const offset = 90;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
       window.scrollTo({
@@ -43,93 +43,96 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#08090b]">
-      {/* Background Image Carousel with Zoom/Fade transitions */}
-      <div className="absolute inset-0 z-0">
-        {heroImages.map((img, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 bg-cover bg-center transition-all duration-[2000ms] ease-out transform ${
-              idx === currentSlide
-                ? "opacity-40 scale-105 pointer-events-auto"
-                : "opacity-0 scale-100 pointer-events-none"
-            }`}
-            style={{ backgroundImage: `url(${img})` }}
-          />
-        ))}
-        {/* Luxury Vignette and Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#08090b] via-[#08090b]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#08090b] via-[#08090b]/30 to-transparent" />
-        {/* Fine-line grid pattern overlay for hospitality aesthetic */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(197,168,128,0.1),rgba(255,255,255,0))]" />
-      </div>
+    <section id="home" className="relative min-h-[90vh] flex items-center bg-white overflow-hidden pt-24 pb-16">
+      {/* Background Decorative lines for high-end feel */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e5e5_1px,transparent_1px)] [background-size:24px_24px] opacity-40 z-0" />
 
-      {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-16 flex flex-col items-center justify-between min-h-[calc(100vh-80px)] w-full">
-        {/* Hero Copy */}
-        <div className="flex-1 flex flex-col justify-center items-center text-center max-w-4xl mt-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-md text-gold text-xs font-semibold uppercase tracking-[0.25em] mb-6 animate-pulse-slow">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-ping" />
+      {/* Split Layout: Full width */}
+      <div className="w-full px-6 md:px-16 lg:px-24 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Left: Text copy (7 columns on large screens) */}
+        <div className="lg:col-span-7 flex flex-col justify-center text-left">
+          
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/25 bg-gold/5 text-gold text-[10px] font-bold uppercase tracking-[0.25em] mb-6 self-start">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
             {t("storySubtitle")}
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1] md:leading-[1.15]">
-            Crafting Memorable <br className="hidden sm:inline" />
-            <span className="gold-text-gradient">Experiences</span> Through <br className="hidden sm:inline" />
-            Exceptional Food
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-neutral-900 mb-6 leading-[1.1]">
+            Crafting Memorable <br />
+            <span className="text-gold">Experiences</span> <br />
+            Through Exceptional Food
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-2xl mb-10 leading-relaxed font-light">
+          <p className="text-neutral-500 text-sm sm:text-base md:text-lg max-w-xl mb-10 leading-relaxed font-light">
             {t("heroSubtext")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <a
               href="#contact"
               onClick={(e) => handleExploreClick(e, "#contact")}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-gold-dark to-gold text-[#08090b] font-bold text-sm tracking-widest uppercase hover:from-gold hover:to-gold-light transition-all duration-300 shadow-[0_10px_30px_rgba(197,168,128,0.3)] flex items-center justify-center gap-2 hover:scale-[1.03]"
+              className="px-8 py-4 rounded-full bg-neutral-900 text-white font-bold text-[10px] tracking-widest uppercase hover:bg-gold transition-all duration-300 shadow-lg shadow-neutral-900/10 flex items-center justify-center gap-2 hover:scale-[1.02]"
             >
               <span>{t("planEvent")}</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
             <a
               href="#services"
               onClick={(e) => handleExploreClick(e, "#services")}
-              className="px-8 py-4 rounded-full border border-white/20 hover:border-gold hover:text-gold text-white font-bold text-sm tracking-widest uppercase transition-all duration-300 bg-white/5 backdrop-blur-md flex items-center justify-center"
+              className="px-8 py-4 rounded-full border border-neutral-200 hover:border-gold hover:text-gold text-neutral-600 font-bold text-[10px] tracking-widest uppercase transition-all duration-300 bg-white/50 backdrop-blur-sm flex items-center justify-center"
             >
               {t("exploreServices")}
             </a>
           </div>
+
+          {/* Minimal inline trust badges */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-neutral-100 max-w-3xl">
+            {trustBadges.map((badge, idx) => {
+              const Icon = badge.icon;
+              return (
+                <div key={idx} className="flex items-center gap-2">
+                  <Icon className="w-4 h-4 text-gold shrink-0" />
+                  <span className="text-[10px] font-bold text-neutral-600 uppercase tracking-wider">
+                    {badge.text}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
 
-        {/* Floating Trust Badges */}
-        <div className="w-full mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl">
-          {trustBadges.map((badge, idx) => {
-            const Icon = badge.icon;
-            return (
-              <div
+        {/* Right: Dynamic Plated Food Gallery slider (5 columns on large screens) */}
+        <div className="lg:col-span-5 relative h-[380px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-neutral-100">
+          {heroImages.map((img, idx) => (
+            <div
+              key={idx}
+              className={`absolute inset-0 bg-cover bg-center transition-all duration-[1500ms] ease-out transform ${
+                idx === currentSlide ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+              }`}
+              style={{ backgroundImage: `url(${img})` }}
+            />
+          ))}
+          
+          {/* Subtle gold bottom gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+          
+          {/* Interactive slide counters at bottom */}
+          <div className="absolute bottom-6 left-6 flex gap-2.5 z-20">
+            {heroImages.map((_, idx) => (
+              <button
                 key={idx}
-                className="glass-premium hover:border-gold/30 p-5 rounded-2xl flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-3.5 transition-all duration-300 group hover:translate-y-[-4px]"
-              >
-                <div className="p-2.5 rounded-lg bg-gold/10 text-gold group-hover:bg-gold group-hover:text-brand-dark transition-colors duration-300">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-1">
-                    {badge.text.split(" ").slice(1).join(" ")}
-                  </h4>
-                  <p className="text-sm font-bold text-white tracking-wide">
-                    {badge.text.split(" ")[0]}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+                onClick={() => setCurrentSlide(idx)}
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  idx === currentSlide ? "w-8 bg-white" : "w-2 bg-white/50 hover:bg-white"
+                }`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Luxury Bottom Shadow Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#08090b] to-transparent pointer-events-none" />
+      </div>
     </section>
   );
 }

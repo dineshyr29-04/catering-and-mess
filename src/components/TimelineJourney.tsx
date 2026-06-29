@@ -42,48 +42,45 @@ export default function TimelineJourney() {
   ];
 
   return (
-    <section id="journey" className="relative py-24 bg-[#08090b] overflow-hidden">
-      {/* Background radial highlight */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/5 blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="journey" className="relative py-20 bg-white overflow-hidden">
+      <div className="w-full px-6 md:px-16 lg:px-24">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="max-w-xl mb-12">
           <span className="text-gold font-bold text-xs uppercase tracking-[0.25em]">{t("journeySubtitle")}</span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mt-3">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
             {t("journeyTitle")}
           </h2>
-          <div className="w-12 h-1 bg-gold mx-auto mt-6" />
+          <div className="w-12 h-0.5 bg-gold mt-4" />
         </div>
 
         {/* Interactive Step-by-Step Flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Steps selector buttons (Left) */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3">
             {steps.map((step, idx) => {
               const Icon = step.icon;
               return (
                 <button
                   key={idx}
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full p-5 rounded-2xl border text-left transition-all duration-300 flex items-center gap-4 ${
+                  className={`w-full p-4 rounded-xl border text-left transition-all duration-300 flex items-center gap-3.5 ${
                     idx === activeStep
-                      ? "bg-gold/10 border-gold text-gold shadow-lg translate-x-2"
-                      : "border-white/5 bg-brand-card/40 text-neutral-400 hover:bg-brand-card hover:text-white"
+                      ? "bg-gold/5 border-gold text-gold translate-x-1 shadow-sm"
+                      : "border-neutral-100 bg-[#faf9f6]/40 text-neutral-400 hover:bg-neutral-50 hover:text-neutral-800"
                   }`}
                 >
-                  <div className={`p-2.5 rounded-xl transition-colors duration-300 ${
-                    idx === activeStep ? "bg-gold text-brand-dark" : "bg-white/5 text-neutral-300"
+                  <div className={`p-2 rounded-lg transition-colors duration-300 ${
+                    idx === activeStep ? "bg-gold text-white" : "bg-neutral-100 text-neutral-500"
                   }`}>
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h4 className="text-xs uppercase font-bold tracking-wider mb-0.5">
+                    <h4 className="text-[9px] uppercase font-bold tracking-wider mb-0.5">
                       {step.title.split(" ")[0]}
                     </h4>
-                    <p className="text-sm font-bold text-white tracking-wide">
+                    <p className="text-xs font-bold text-neutral-800 tracking-wide">
                       {step.title.split(" ").slice(1).join(" ")}
                     </p>
                   </div>
@@ -93,35 +90,35 @@ export default function TimelineJourney() {
           </div>
 
           {/* Step Detail Card (Right) */}
-          <div className="lg:col-span-7 bg-brand-card border border-white/5 p-8 sm:p-10 rounded-3xl relative overflow-hidden min-h-[350px] flex flex-col justify-between shadow-2xl">
+          <div className="lg:col-span-7 bg-[#faf9f6] border border-neutral-100 p-8 sm:p-10 rounded-2xl relative overflow-hidden min-h-[300px] flex flex-col justify-between shadow-sm">
             {/* Massive watermarked background step index */}
-            <div className="absolute right-0 bottom-0 text-[180px] font-bold text-white/[0.02] leading-none select-none font-serif">
+            <div className="absolute right-2 bottom-0 text-[140px] font-bold text-neutral-900/[0.02] leading-none select-none font-serif">
               0{activeStep + 1}
             </div>
 
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-gold/10 text-gold text-xs font-semibold uppercase tracking-wider border border-gold/15">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white text-gold text-[9px] font-bold uppercase tracking-wider border border-gold/15 shadow-sm">
                 Step 0{activeStep + 1} of 05
               </div>
 
-              <h3 className="font-serif text-2xl md:text-3xl font-bold text-white">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-850">
                 {steps[activeStep].title}
               </h3>
               
-              <p className="text-neutral-300 text-sm md:text-base leading-relaxed font-light">
+              <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed font-light">
                 {steps[activeStep].desc}
               </p>
 
-              <hr className="border-white/5" />
+              <hr className="border-neutral-200/50" />
 
-              <p className="text-neutral-400 text-xs leading-relaxed font-light">
+              <p className="text-neutral-500 text-[11px] leading-relaxed font-light">
                 {steps[activeStep].details}
               </p>
             </div>
 
-            <div className="mt-8 flex items-center justify-between text-xs text-gold font-bold uppercase tracking-wider border-t border-white/5 pt-6">
+            <div className="mt-6 flex items-center justify-between text-[9px] text-gold font-bold uppercase tracking-wider border-t border-neutral-200/50 pt-4">
               <span>Aura Quality Assured</span>
-              <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             </div>
           </div>
 

@@ -7,7 +7,6 @@ import { Award, ShieldCheck, HeartHandshake, Hourglass, Utensils, Sliders } from
 export default function WhyChooseUs() {
   const { t } = useLanguage();
   
-  // Custom counter animation hook (simple client side trigger)
   const [chefs, setChefs] = useState(0);
   const [events, setEvents] = useState(0);
   const [meals, setMeals] = useState(0);
@@ -24,11 +23,10 @@ export default function WhyChooseUs() {
       
       if (isVisible) {
         setHasAnimated(true);
-        // Start counting animations
-        animateVal(setChefs, 12, 1500);
-        animateVal(setEvents, 500, 2000);
-        animateVal(setMeals, 2500, 2000);
-        animateVal(setYears, 10, 1500);
+        animateVal(setChefs, 12, 1000);
+        animateVal(setEvents, 500, 1500);
+        animateVal(setMeals, 2500, 1500);
+        animateVal(setYears, 10, 1000);
       }
     };
 
@@ -47,7 +45,7 @@ export default function WhyChooseUs() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check once on mount
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasAnimated]);
 
@@ -68,86 +66,85 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-24 bg-[#08090b]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section ref={sectionRef} className="relative py-20 bg-white">
+      <div className="w-full px-6 md:px-16 lg:px-24">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="max-w-xl mb-12">
           <span className="text-gold font-bold text-xs uppercase tracking-[0.25em]">{t("whySubtitle")}</span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mt-3">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
             {t("whyTitle")}
           </h2>
-          <div className="w-12 h-1 bg-gold mx-auto mt-6" />
+          <div className="w-12 h-0.5 bg-gold mt-4" />
         </div>
 
         {/* Counter Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {[
             { value: chefs, suffix: "+", label: t("chefsCount") },
             { value: events, suffix: "+", label: t("eventsCount") },
             { value: meals, suffix: "+", label: t("mealsCount") },
             { value: years, suffix: "+", label: t("yearsCount") }
           ].map((stat, idx) => (
-            <div key={idx} className="text-center bg-brand-card/30 border border-white/5 p-6 rounded-2xl">
-              <span className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold gold-text-gradient block mb-2">
+            <div key={idx} className="text-center bg-[#faf9f6] border border-neutral-100 p-5 rounded-xl shadow-sm">
+              <span className="font-serif text-3xl md:text-4xl font-bold gold-text-gradient block mb-1">
                 {stat.value}{stat.suffix}
               </span>
-              <span className="text-xs uppercase font-semibold text-neutral-400 tracking-wider">
+              <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">
                 {stat.label}
               </span>
             </div>
           ))}
         </div>
 
-        {/* Main Grid: Features and Comparison Graph */}
+        {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Features Cards Grid (Left) */}
+          {/* Features Cards Grid */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {cards.map((card, idx) => {
               const Icon = card.icon;
               return (
-                <div key={idx} className="p-6 rounded-2xl bg-brand-card border border-white/5 hover:border-gold/20 hover:bg-brand-card/80 transition-all duration-300 group">
-                  <div className="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 group-hover:bg-gold group-hover:text-[#08090b] transition-all">
-                    <Icon className="w-5 h-5" />
+                <div key={idx} className="p-5 rounded-xl bg-white border border-neutral-100 hover:border-gold/30 hover:bg-[#faf9f6]/20 transition-all duration-300 group shadow-sm">
+                  <div className="w-9 h-9 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:bg-neutral-900 group-hover:text-white transition-all">
+                    <Icon className="w-4.5 h-4.5" />
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-2">{card.title}</h4>
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light">{card.desc}</p>
+                  <h4 className="text-xs font-bold text-neutral-850 mb-1">{card.title}</h4>
+                  <p className="text-[11px] text-neutral-500 leading-relaxed font-light">{card.desc}</p>
                 </div>
               );
             })}
           </div>
 
-          {/* Comparative Audit Graph (Right) */}
-          <div className="lg:col-span-5 bg-brand-card border border-white/5 p-8 rounded-3xl shadow-2xl relative">
-            <h3 className="font-serif text-lg font-bold text-white mb-6">Service Comparison Audit</h3>
-            <p className="text-xs text-neutral-400 mb-8 font-light leading-relaxed">
+          {/* Comparative Audit Graph */}
+          <div className="lg:col-span-5 bg-[#faf9f6] border border-neutral-100 p-6 sm:p-8 rounded-2xl shadow-sm relative">
+            <h3 className="font-serif text-base font-bold text-neutral-800 mb-4">Service Comparison Audit</h3>
+            <p className="text-[11px] text-neutral-500 mb-6 font-light leading-relaxed">
               We audit our services against generic vendors to ensure every guest receives a true 5-star hospitality experience.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               {comparisonData.map((data, idx) => (
-                <div key={idx} className="space-y-2">
-                  <div className="flex justify-between text-xs font-medium">
-                    <span className="text-neutral-300">{data.metric}</span>
-                    <span className="text-gold font-bold">{data.aura}% Compliance</span>
+                <div key={idx} className="space-y-1.5">
+                  <div className="flex justify-between text-[11px] font-bold">
+                    <span className="text-neutral-700">{data.metric}</span>
+                    <span className="text-gold">{data.aura}% Compliance</span>
                   </div>
                   
                   {/* Progress bars */}
-                  <div className="space-y-1.5">
-                    {/* Aura bar */}
-                    <div className="h-2 w-full bg-brand-dark rounded-full overflow-hidden">
+                  <div className="space-y-1">
+                    <div className="h-1.5 w-full bg-neutral-200 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full transition-all duration-1000"
                         style={{ width: `${hasAnimated ? data.aura : 0}%` }}
                       />
                     </div>
-                    {/* Standard bar */}
-                    <div className="flex items-center justify-between text-[10px] text-neutral-500">
+                    
+                    <div className="flex items-center justify-between text-[9px] text-neutral-400">
                       <span>Standard Caterers: {data.standard}%</span>
-                      <div className="h-1.5 w-1/3 bg-brand-dark rounded-full overflow-hidden">
+                      <div className="h-1 w-1/3 bg-neutral-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-neutral-700 rounded-full transition-all duration-1000"
+                          className="h-full bg-neutral-400 rounded-full transition-all duration-1000"
                           style={{ width: `${hasAnimated ? data.standard : 0}%` }}
                         />
                       </div>
@@ -155,10 +152,6 @@ export default function WhyChooseUs() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-white/5 text-[10px] text-center text-neutral-400 italic">
-              * Independent audit logs verified according to regional food safety departments.
             </div>
           </div>
 

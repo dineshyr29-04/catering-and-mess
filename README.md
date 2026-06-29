@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aura Banquet & Catering | Premium Food Hospitality Portal
 
-## Getting Started
+A luxury, high-conversion Next.js website for a professional Catering and Mess Service brand. Built using **Next.js 16 (App Router)**, **TypeScript**, and the latest **Tailwind CSS v4**.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Luxury Design & Aesthetics**: Deep obsidian color scheme, amber/gold accents, elegant serif typography (Playfair Display), smooth hover states, and glassmorphism layouts.
+- **Cinematic Hero**: Full-screen fading food preparation slideshow, with floating trust metrics.
+- **Brand Story**: Creative chef bio and interactive journey timeline tabs (2016-2026).
+- **Service Showcase**: Hover cards with bullet lists highlighting Wedding, Corporate, Event, and Bulk services.
+- **Dynamic Menu Gallery**: Filterable category tabs (Breakfast, Lunch, Dinner, Traditional, Packages) showing prices, ingredients, and chef badges.
+- **Custom Menu Builder (CRM)**: An interactive modal allowing users to click and select specific dishes to request a custom catering proposal, auto-saving it as a lead.
+- **Interactive Mess Calculator**: Slider configurations allowing students or office professionals to choose their meals, preferences, duration (with discounts), and calculate prices instantly before subscribing.
+- **Masonry Gallery**: Filterable photo masonry displaying weddings, plating, kitchen, and customer moments.
+- **Interactive Hospitality Audit**: Comparative progress graphs showing compliance ratings.
+- **Quotes Carousel**: Star-ratings review slides with customer profiles.
+- **Catering Booking Form**: High-conversion wizard capturing name, phone, email, event date, guests count, food preference, and budget ranges.
+- **Download Brochure**: Clickable link compiling and downloading a mock catalog brochure.
+- **Floating WhatsApp chat**: Floating chat launcher with prefilled query text.
+- **Dual-Language support**: Global context switcher toggling the entire website between English (EN) and Hindi (HI) instantaneously.
+- **Full Client-Side CRM Admin Panel**: Click on the **"Dashboard Portal" (Shield icon)** in the navbar to open the admin console where you can:
+  - Add, edit, or delete items from the menu.
+  - Upload new photos to the gallery.
+  - View all leads and catering inquiries submitted via the forms, with options to change their status (Pending, Contacted, Confirmed, Cancelled) or delete them.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 16 (App Router, TypeScript)
+- **Styling**: Tailwind CSS v4 + PostCSS
+- **Icons**: Lucide React
+- **Storage**: Client-side `localStorage` (acting as a mock CRM backend)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Running the Project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To start the development server locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
